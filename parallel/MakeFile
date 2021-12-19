@@ -1,0 +1,33 @@
+CC = g++ -std=c++11 -pthread
+INCLUDE_DIR = ./includes
+
+all : ImageFilters.out
+
+ImageFilters.out : ./utils.o ./readImg.o ./blur.o ./sepia.o ./washedOut.o ./multipleSign.o ./readPixles.o
+	${CC} ./utils.o ./readImg.o ./blur.o ./sepia.o ./washedOut.o ./multipleSign.o ./readPixles.o -o ImageFilters.out
+
+
+./readPixles: ./readPixles.cpp ./utils.hpp
+	{CC} -c  ./readPixles.cpp -o ./readPixles.o
+
+./blur.o: ./blur.cpp ./utils.hpp
+	${CC} -c  ./blur.cpp -o ./blur.o
+
+./washedOut.o: ./washedOut.cpp ./utils.hpp
+	${CC} -c  ./washedOut.cpp -o ./washedOut.o
+
+./multipleSign.o: ./multipleSign.cpp ./utils.hpp
+	${CC} -c  ./multipleSign.cpp -o ./multipleSign.o
+
+./sepia.o: ./sepia.cpp ./utils.o
+	${CC} -c  ./sepia.cpp -o ./sepia.o
+
+./utils.o: ./utils.cpp ./utils.hpp
+	${CC} -c  ./utils.cpp -o ./utils.o
+
+./readImg.o : ./readImg.cpp ./utils.hpp
+	${CC} -c  ./readImg.cpp -o ./readImg.o
+
+clean :
+	rm *.o
+	rm *.out

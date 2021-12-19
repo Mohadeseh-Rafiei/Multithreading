@@ -1,0 +1,18 @@
+CC = g++ -std=c++11
+INCLUDE_DIR = ./includes
+
+all : ImageFilters.out
+
+ImageFilters.out : ./utils.o ./readImg.o
+	${CC} ./utils.o ./readImg.o -o ImageFilters.out
+
+./utils.o: ./utils.cpp ./utils.hpp
+	${CC} -c  ./utils.cpp -o ./utils.o
+
+./readImg.o : ./readImg.cpp ./utils.hpp
+	${CC} -c  ./readImg.cpp -o ./readImg.o
+
+clean :
+	rm *.o
+	rm *.out
+
